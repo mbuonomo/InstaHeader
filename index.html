@@ -54,6 +54,10 @@
 
     <div class="row demo-row">
 <pre class="prettyprint linenums">
+&lt;link href="jquery.instaheader.css" rel="stylesheet"&gt;
+&lt;script src="js/jquery.instaheader.js"&gt;&lt;/script&gt;
+</pre>
+<pre class="prettyprint linenums">
 &lt;div class="instaheaderbg"&gt;
   &lt;div id="header"&gt;&lt;/div&gt;
 &lt;/div&gt;
@@ -71,7 +75,8 @@ $('#header').instaheader({
   auto: true,
   imgs:[],
   time:3000,
-  scan:false
+  scan:false,
+  animation_time:500
 });
 &lt;/script&gt;
 </pre>
@@ -106,6 +111,11 @@ $('#header').instaheader({
             <td>scan</td>
             <td>the identifier in wich one you want to scan the images (Ex: #header / .header)</td>
             <td>false</td>
+          </tr>
+          <tr>
+            <td>animation_time</td>
+            <td>Execution time for the transition</td>
+            <td>500</td>
           </tr>
         </tbody>
       </table>
