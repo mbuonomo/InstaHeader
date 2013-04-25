@@ -1,0 +1,47 @@
+.instaheaderbg{
+	margin: 0;
+	padding: 32px 0 0;
+	background: #333333 url("../images/instaheader/noise-black.png") 50% 50%;
+	background-image: url("../images/instaheader/profile-header-gradient.png"), url("../images/instaheader/noise-black.png");
+	-webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.2), 0 1px 3px rgba(0,0,0,.5) inset;
+	-moz-box-shadow: 0 1px 0 rgba(255,255,255,0.2), 0 1px 3px rgba(0,0,0,.5) inset;
+	box-shadow: 0 1px 0 rgba(255,255,255,0.2), 0 1px 3px rgba(0,0,0,.5) inset;
+	position: relative;
+	overflow: hidden;
+}
+
+.instaheader{
+	width:100%;
+	
+	border-top: none;
+
+	-webkit-box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+	-moz-box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.instaheader img {
+	width:100%;
+	border: 1px solid #000
+}
+.instaheader .col{
+	float:left;
+}
+
+.instaheader .col > div{
+	width:100%;
+	float:left;
+}
+
+.instaheader .col .img1,.instaheader .col .img1 img{
+	-webkit-border-top-left-radius: 8px;
+	-moz-border-radius-topleft: 8px;
+	border-top-left-radius: 8px;
+}
+
+.instaheader .col .img5,.instaheader .col .img5 img{
+	-webkit-border-top-right-radius: 8px;
+	-moz-border-radius-topright: 8px;
+	border-top-right-radius: 8px;
+}
+
