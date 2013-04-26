@@ -10,6 +10,7 @@
     var pluginName = "instaheader",
         defaults = {
             auto: true,
+            selector:'img',
             imgs:[],
             time:3000,
             animate:true,
@@ -40,13 +41,28 @@
 
             if (options.auto === true) {
                 if(options.scan === false) {
-                    $('img').each(function(index, item){
-                        imgs.push({key:index, url:$(item).attr('src')});
-                    });
+                    if(options.selector === 'img'){
+                        $('img').each(function(index, item){
+                            imgs.push({key:index, url:$(item).attr('src')});
+                        });
+                    }else {
+                        $('a').each(function(index, item){
+                            var first = $(item).first('img');
+                            imgs.push({key:index, link:$(item).attr('href'), url:$(first).attr('src')});
+                        });
+                    }
                 } else {
-                    $(options.scan).find('img').each(function(index, item){
-                        imgs.push({key:index, url:$(item).attr('src')});
-                    });
+
+                    if(options.selector === 'img'){
+                        $(options.scan).find('img').each(function(index, item){
+                            imgs.push({key:index, url:$(item).attr('src')});
+                        });
+                    }else {
+                        $(options.scan).find('a').each(function(index, item){
+                            var first = $(item).find('img');
+                            imgs.push({key:index, link:$(item).attr('href'), url:$(first[0]).attr('src')});
+                        });
+                    }
                 }
             } else {
                 imgs = options.imgs;
@@ -67,7 +83,11 @@
 
             $('.instaheader .col > div').each(function(index, item) {
                 var i = imgs[index];
-                $(item).html('<img rel="'+i.key+'" src="'+i.url+'" class="active first"/><img class="last" />');
+                if(options.selector == 'img') {
+                    $(item).html('<img rel="'+i.key+'" src="'+i.url+'" class="active first"/><img class="last" />');
+                } else {
+                    $(item).html('<a href="'+i.link+'"><img rel="'+i.key+'" src="'+i.url+'" class="active first"/></a><a href="'+i.link+'"><img class="last" /></a>');
+                }
             });
 
             if (options.animate) {
@@ -92,10 +112,15 @@
 
                     $('.img'+d+' > img.last').attr('src', i.url).attr('rel', i.key);
 
+                    if(options.selector == 'a'){
+                        $('.img'+d+' > img.last').parent('a').attr('src', i.url).attr('rel', i.key);
+                    }
+
                     var $active = $('.img'+d+' > img.first');
                     var $next = $('.img'+d+' > img.last');
 
-                    $('.img'+d+' > img.last').css('z-index',2);
+                    $('.img'+d+' > img.last').css('z-index',1);
+
                     $active.fadeOut(options.animation_time,function(){
                         $active.css('z-index',1).show().removeClass('active');
                         $active.attr('rel', '');
@@ -103,7 +128,7 @@
                         $next.css('z-index',3).addClass('active');
                         $active.removeClass('first').addClass('last');
                         $next.removeClass('last').addClass('first');
-                    });              
+                    });
                 }, options.time);
             }
         }
