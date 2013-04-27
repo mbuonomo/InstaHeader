@@ -110,24 +110,27 @@
                     var i = imgs_clone[new_index];
                     var d = divs[Math.floor(Math.random()*divs.length)];
 
-                    $('.img'+d+' > img.last').attr('src', i.url).attr('rel', i.key);
+                    $('.img'+d+' img.last').attr('src', i.url).attr('rel', i.key);
 
                     if(options.selector == 'a'){
                         $('.img'+d+' > img.last').parent('a').attr('src', i.url).attr('rel', i.key);
                     }
-
-                    var $active = $('.img'+d+' > img.first');
-                    var $next = $('.img'+d+' > img.last');
+                    var $active = $('.img'+d+' img.first');
+                    var $next = $('.img'+d+' img.last');
 
                     $('.img'+d+' > img.last').css('z-index',1);
 
                     $active.fadeOut(options.animation_time,function(){
+
                         $active.css('z-index',1).show().removeClass('active');
                         $active.attr('rel', '');
                         $active.attr('src', '');
+
                         $next.css('z-index',3).addClass('active');
+
                         $active.removeClass('first').addClass('last');
                         $next.removeClass('last').addClass('first');
+
                     });
                 }, options.time);
             }
