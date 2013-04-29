@@ -30,6 +30,7 @@
             auto: true,
             selector:'img',
             imgs:[],
+            urls:[],
             time:3000,
             animate:true,
             scan:false,
@@ -83,7 +84,23 @@
                     }
                 }
             } else {
-                imgs = options.imgs;
+                var withurl = false;
+                if(options.imgs.length == 0){
+                    console.error('['+pluginName+'] No images found. Please set a images list');
+                }
+                if (options.urls.length > 0) {
+                    if(options.urls.length != options.imgs.length) {
+                        withurl = true;
+                        console.error('['+pluginName+'] You must set the exact same number of urls and images');
+                    }
+                }
+                $(imgs).each(function(index, img){
+                    if(withurl){
+                        imgs.push({key:index, link:options.urls[index], url:img});
+                    }else {
+                        imgs.push({key:index, url:img});
+                    }
+                });
             }
 
             if (imgs.length == 0) {
