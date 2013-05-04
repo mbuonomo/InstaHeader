@@ -74,6 +74,7 @@ $(document).ready(function(){
 $('#header').instaheader({
   auto: true,
   imgs:[],
+  urls:[],
   selector:'img',
   time:3000,
   scan:false,
@@ -101,6 +102,11 @@ $('#header').instaheader({
           <tr>
             <td>imgs</td>
             <td>You can set an array of images urls. If set the auto option is override to false</td>
+            <td>[]</td>
+          </tr>
+          <tr>
+            <td>urls</td>
+            <td>You can set an array of urls. /!\ you must enter the exact same number of urls that imgs</td>
             <td>[]</td>
           </tr>
           <tr>
