@@ -23,6 +23,36 @@
  *  WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 
+    // HTML5 PageVisibility API
+    // http://www.html5rocks.com/en/tutorials/pagevisibility/intro/
+    // by Joe Marini (@joemarini)
+    function getHiddenProp(){
+        var prefixes = ['webkit','moz','ms','o'];
+
+        // if 'hidden' is natively supported just return it
+        if ('hidden' in document) return 'hidden';
+
+        // otherwise loop over all the known prefixes until we find one
+        for (var i = 0; i < prefixes.length; i++){
+            if ((prefixes[i] + 'Hidden') in document) 
+                return prefixes[i] + 'Hidden';
+        }
+
+        // otherwise it's not supported
+        return null;
+    }
+    function isHidden() {
+        var prop = getHiddenProp();
+        if (!prop) return false;
+
+        return document[prop];
+    }
+
+    function isEmpty( obj ) {
+        return Object.keys(obj).length === 0;
+    }
+
+
 ;(function ( $, window, document, undefined ) {
 
     var pluginName = "instaheader",
@@ -34,7 +64,8 @@
             time:3000,
             animate:true,
             scan:false,
-            animation_time:500
+            animation_time:800,
+            animationType:'random'
         };
 
     var imgs = new Array();
@@ -53,12 +84,250 @@
     Plugin.prototype = {
 
         init: function() {
-            this.draw(this.element, this.options);
+            if(typeof(Modernizr) == 'undefined' ){
+                console.error('Modernizr is required : http://modernizr.com/');
+            }else{
+                var self = this,
+                    transEndEventNames = {
+                        'WebkitTransition' : 'webkitTransitionEnd',
+                        'MozTransition' : 'transitionend',
+                        'OTransition' : 'oTransitionEnd',
+                        'msTransition' : 'MSTransitionEnd',
+                        'transition' : 'transitionend'
+                    };
+
+                // support CSS transitions and 3d transforms
+                this.supportTransitions = Modernizr.csstransitions;
+                this.supportTransforms3D = Modernizr.csstransforms3d;
+
+                this.transEndEventName = transEndEventNames[ Modernizr.prefixed( 'transition' ) ] + '.gridrotator';
+                // all animation types for the random option
+                this.animTypes = this.supportTransforms3D ? [
+                    'fadeInOut',
+                    'slideLeft', 
+                    'slideRight', 
+                    'slideTop', 
+                    'slideBottom', 
+                    'rotateLeft', 
+                    'rotateRight', 
+                    'rotateTop', 
+                    'rotateBottom', 
+                    'scale', 
+                    'rotate3d', 
+                    'rotateLeftScale', 
+                    'rotateRightScale', 
+                    'rotateTopScale', 
+                    'rotateBottomScale' ] :
+                    [ 'fadeInOut', 'slideLeft', 'slideRight', 'slideTop', 'slideBottom' ];
+
+                this.animType = 'random';
+
+                if( this.animType !== 'random' && !this.supportTransforms3D && $.inArray( this.animType, this.animTypes ) === -1 && this.animType !== 'showHide' ) {
+
+                    // fallback to 'fadeInOut' if user sets a type which is not supported
+                    this.animType = 'fadeInOut';
+
+                }
+
+                this.animTypesTotal = this.animTypes.length;
+                this.draw(this.element, this.options);
+            }
+        },
+        // get which type of animation
+        _getAnimType : function() {
+
+            return this.options.animationType === 'random' ? this.animTypes[ Math.floor( Math.random() * this.animTypesTotal ) ] : this.options.animationType;
+
+        },
+
+        // get css properties for the transition effect
+        _getAnimProperties : function( $out ) {
+
+            var startInProp = {}, startOutProp = {}, endInProp = {}, endOutProp = {},
+                animType = this._getAnimType(), speed, delay = 0;
+
+            switch( animType ) {
+
+                case 'showHide' :
+                    
+                    speed = 0;
+                    endOutProp.opacity = 0;
+                    break;
+
+                case 'fadeInOut' :
+
+                    endOutProp.opacity = 0;
+                    break;
+
+                case 'slideLeft' :
+                    
+                    startInProp.left = $out.width();
+                    endInProp.left = 0;
+                    endOutProp.left = -$out.width();
+                    break;
+
+                case 'slideRight' :
+                    
+                    startInProp.left = -$out.width();
+                    endInProp.left = 0;
+                    endOutProp.left = $out.width();
+                    break;
+
+                case 'slideTop' :
+                    
+                    startInProp.top = $out.height();
+                    endInProp.top = 0;
+                    endOutProp.top = -$out.height();
+                    break;
+
+                case 'slideBottom' :
+                    
+                    startInProp.top = -$out.height();
+                    endInProp.top = 0;
+                    endOutProp.top = $out.height();
+                    break;
+
+                case 'rotateLeft' :
+                    
+                    speed = this.options.animation_time / 2;
+                    startInProp.transform = 'rotateY(90deg)';
+                    endInProp.transform = 'rotateY(0deg)';
+                    delay = speed;
+                    endOutProp.transform = 'rotateY(-90deg)';
+                    break;
+
+                case 'rotateRight' :
+                    
+                    speed = this.options.animation_time / 2;
+                    startInProp.transform = 'rotateY(-90deg)';
+                    endInProp.transform = 'rotateY(0deg)';
+                    delay = speed;
+                    endOutProp.transform = 'rotateY(90deg)';
+                    break;
+
+                case 'rotateTop' :
+                    
+                    speed = this.options.animation_time / 2;
+                    startInProp.transform= 'rotateX(90deg)';
+                    endInProp.transform = 'rotateX(0deg)';
+                    delay = speed;
+                    endOutProp.transform = 'rotateX(-90deg)';
+                    break;
+
+                case 'rotateBottom' :
+                    
+                    speed = this.options.animation_time / 2;
+                    startInProp.transform = 'rotateX(-90deg)';
+                    endInProp.transform = 'rotateX(0deg)';
+                    delay = speed;
+                    endOutProp.transform = 'rotateX(90deg)';
+                    break;
+
+                case 'scale' :
+                    
+                    speed = this.options.animation_time / 2;
+                    startInProp.transform = 'scale(0)';
+                    startOutProp.transform = 'scale(1)';
+                    endInProp.transform = 'scale(1)';
+                    delay = speed;
+                    endOutProp.transform = 'scale(0)';
+                    break;
+
+                case 'rotateLeftScale' :
+                    
+                    startOutProp.transform = 'scale(1)';
+                    speed = this.options.animation_time / 2; 
+                    startInProp.transform = 'scale(0.3) rotateY(90deg)';
+                    endInProp.transform = 'scale(1) rotateY(0deg)';
+                    delay = speed;
+                    endOutProp.transform = 'scale(0.3) rotateY(-90deg)';
+                    break;
+
+                case 'rotateRightScale' :
+                    
+                    startOutProp.transform = 'scale(1)';
+                    speed = this.options.animation_time / 2;
+                    startInProp.transform = 'scale(0.3) rotateY(-90deg)';
+                    endInProp.transform = 'scale(1) rotateY(0deg)';
+                    delay = speed;
+                    endOutProp.transform = 'scale(0.3) rotateY(90deg)';
+                    break;
+
+                case 'rotateTopScale' :
+                    
+                    startOutProp.transform = 'scale(1)';
+                    speed = this.options.animation_time / 2;
+                    startInProp.transform = 'scale(0.3) rotateX(90deg)';
+                    endInProp.transform = 'scale(1) rotateX(0deg)';
+                    delay = speed;
+                    endOutProp.transform = 'scale(0.3) rotateX(-90deg)';
+                    break;
+
+                case 'rotateBottomScale' :
+                    
+                    startOutProp.transform = 'scale(1)';
+                    speed = this.options.animation_time / 2;
+                    startInProp.transform = 'scale(0.3) rotateX(-90deg)';
+                    endInProp.transform = 'scale(1) rotateX(0deg)';
+                    delay = speed;
+                    endOutProp.transform = 'scale(0.3) rotateX(90deg)';
+                    break;
+
+                case 'rotate3d' :
+                    
+                    speed = this.options.animation_time / 2;
+                    startInProp.transform = 'rotate3d( 1, 1, 0, 90deg )';
+                    endInProp.transform = 'rotate3d( 1, 1, 0, 0deg )';
+                    delay = speed;
+                    endOutProp.transform = 'rotate3d( 1, 1, 0, -90deg )';
+                    break;
+
+            }
+
+            return {
+                startInProp : startInProp,
+                startOutProp : startOutProp,
+                endInProp : endInProp,
+                endOutProp : endOutProp,                
+                delay : delay,
+                animSpeed : speed != undefined ? speed : this.options.animation_time
+            };
+
+        },
+
+        _setTransition : function( el, prop, speed, delay, easing ) {
+
+            setTimeout( function() {
+                el.css( 'transition', prop + ' ' + speed + 'ms ' + delay + 'ms ' + easing );
+            }, 25 );
+
+        },
+        _applyTransition : function( el, styleCSS, speed, fncomplete, force ) {
+
+            var self = this;
+            setTimeout( function() {
+                $.fn.applyStyle = self.supportTransitions ? $.fn.css : $.fn.animate;
+
+                if( fncomplete && self.supportTransitions ) {
+
+                    el.on( self.transEndEventName, fncomplete );
+
+                    if( force ) {
+                        fncomplete.call( el );                  
+                    }
+
+                }
+
+                fncomplete = fncomplete || function() { return false; };
+
+                el.stop().applyStyle( styleCSS, $.extend( true, [], { duration : speed + 'ms', complete : fncomplete } ) );
+            }, 25 );
+
         },
 
         draw: function(el, options) {
             var withurl = false;
-
+            var that = this;
             if (options.auto === true) {
                 if(options.scan === false) {
                     if(options.selector === 'img'){
@@ -122,9 +391,9 @@
                 if(typeof(imgs[index]) != 'undefined'){
                     var i = imgs[index];
                     if(options.selector == 'img' && withurl === false) {
-                        $(item).html('<img rel="'+i.key+'" src="'+i.url+'" class="active first"/><img class="last" />');
+                        $(item).html('<a href="javascript:void(0);" style="background-image:url('+i.url+')"></a>');
                     } else {
-                        $(item).html('<a href="'+i.link+'"><img rel="'+i.key+'" src="'+i.url+'" class="active first"/></a><a href="'+i.link+'"><img class="last" /></a>');
+                        $(item).html('<a href="'+i.link+'" style="background-image:url('+i.url+')"></a>');
                     }
                 }
             });
@@ -149,29 +418,50 @@
                     if(typeof(imgs_clone[new_index]) != 'undefined'){
                         var i = imgs_clone[new_index];
                         var d = divs[Math.floor(Math.random()*divs.length)];
+                        var $out = $('.instaheader .img'+d);
 
-                        $('.img'+d+' img.last').attr('src', i.url).attr('rel', i.key);
+                        var self = this,
+                            $outA = $out.children( 'a:last' ),
+                            newElProp = {
+                                width : $outA.width(),
+                                height : $outA.height(),
+                                backgroundImage: 'url("'+i.url+'")'
 
-                        if(options.selector == 'a'){
-                            $('.img'+d+' > img.last').parent('a').attr('src', i.url).attr('rel', i.key);
-                        }
-                        var $active = $('.img'+d+' img.first');
-                        var $next = $('.img'+d+' img.last');
+                            };
 
-                        $('.img'+d+' > img.last').css('z-index',1);
+                        // element stays active
+                        $out.data( 'active', true );
+                        $inA = $('<a href=""></a>');
+                        // prepend in element
+                        $inA.css( newElProp ).prependTo( $out );
 
-                        $active.fadeOut(options.animation_time,function(){
+                        var animProp = that._getAnimProperties( $outA );
 
-                            $active.css('z-index',1).show().removeClass('active');
-                            $active.attr('rel', '');
-                            $active.attr('src', '');
+                        $inA.css( animProp.startInProp );
+                        $outA.css( animProp.startOutProp );
 
-                            $next.css('z-index',3).addClass('active');
+                        that._setTransition( $inA, 'all', animProp.animSpeed, animProp.delay, 'linear' );
+                        that._setTransition( $outA, 'all', animProp.animSpeed, 0, 'linear' );
 
-                            $active.removeClass('first').addClass('last');
-                            $next.removeClass('last').addClass('first');
+                        that._applyTransition( $inA, animProp.endInProp, that.options.animation_time, function() {
 
-                        });
+                            var $el = $( this ),
+                                t = animProp.animSpeed === that.options.animation_time && isEmpty( animProp.endInProp ) ? animProp.animSpeed : 0;
+                                
+                            setTimeout( function() {
+                                
+                                if( self.supportTransitions ) {
+                                    $el.off( self.transEndEventName );
+                                }
+                                
+                                $el.next().remove();
+                                $el.parent().data( 'active', false );
+
+                            }, t );
+
+                        }, animProp.animSpeed === 0 || isEmpty( animProp.endInProp ) );
+                        that._applyTransition( $outA, animProp.endOutProp, animProp.animSpeed );
+
                     }
                 }, options.time);
             }
