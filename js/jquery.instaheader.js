@@ -391,7 +391,7 @@
                 if(typeof(imgs[index]) != 'undefined'){
                     var i = imgs[index];
                     if(options.selector == 'img' && withurl === false) {
-                        $(item).html('<a href="javascript:void(0);" style="background-image:url('+i.url+')"></a>');
+                        $(item).html('<a href="javascript:void(0);" rel="'+i.key+'" style="background-image:url('+i.url+')"></a>');
                     } else {
                         $(item).html('<a href="'+i.link+'" style="background-image:url('+i.url+')"></a>');
                     }
@@ -403,7 +403,7 @@
 
                     var imgs_clone = imgs.slice();
 
-                    $('.instaheader').find('img').each(function(index, item){
+                    $('.instaheader').find('a').each(function(index, item){
                         
                         var rel = parseInt($(item).attr('rel'));
 
@@ -431,7 +431,7 @@
 
                         // element stays active
                         $out.data( 'active', true );
-                        $inA = $('<a href=""></a>');
+                        $inA = $('<a href="" rel="'+i.key+'" ></a>');
                         // prepend in element
                         $inA.css( newElProp ).prependTo( $out );
 

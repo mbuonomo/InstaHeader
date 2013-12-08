@@ -78,7 +78,8 @@ $('#header').instaheader({
   selector:'img',
   time:3000,
   scan:false,
-  animation_time:500
+  animation_time:500,
+  animationType:'random'
 });
 &lt;/script&gt;
 </pre>
@@ -129,6 +130,11 @@ $('#header').instaheader({
             <td>Execution time for the transition</td>
             <td>500</td>
           </tr>
+          <tr>
+            <td>animationType</td>
+            <td>Type of the animation for the transition btw 2 images</td>
+            <td>random</td>
+          </tr>
         </tbody>
       </table>
     </div>    
@@ -139,16 +145,18 @@ $('#header').instaheader({
       <ul class="thumbnails" id="example1">
        <li class="span3"><a href=""><img src="http://distilleryimage2.s3.amazonaws.com/cafe9804ab6e11e29e3522000a1fbc06_7.jpg" /></a></li>
        <li class="span3"><a href=""><img src="http://distilleryimage6.s3.amazonaws.com/a90a6eb6ab5611e2b93522000a1f96b2_6.jpg" /></a></li>
-       <li class="span3"><a href=""><img src="http://distilleryimage3.s3.amazonaws.com/995c1978ab5c11e2952822000a1f9695_6.jpg" /></a></li>
-       <li class="span3"><a href=""><img src="http://distilleryimage10.s3.amazonaws.com/7296d806ab4c11e2890222000a1fb0b2_7.jpg" /></a></li>
-       <li class="span3"><a href=""><img src="http://distilleryimage6.s3.amazonaws.com/716a3632ab3611e2ae2a22000a1f9723_7.jpg" /></a></li>
-       <li class="span3"><a href=""><img src="http://distilleryimage5.s3.amazonaws.com/8570e2dca9b211e2bb5822000a9e060e_7.jpg" /></a></li>
-       <li class="span3"><a href=""><img src="http://distilleryimage6.s3.amazonaws.com/37a66316a98e11e28a2e22000a1fbc67_7.jpg" /></a></li>
-       <li class="span3"><a href=""><img src="http://distilleryimage11.s3.amazonaws.com/753d4c7ea8dc11e2aaa822000a1fb0dd_7.jpg" /></a></li>
+       <li class="span3"><a href=""><img src="http://farm1.staticflickr.com/61/366959006_94023bb220.jpg" /></a></li>
+       <li class="span3"><a href=""><img src="http://farm1.staticflickr.com/195/492389522_d5609a92b4.jpg" /></a></li>
+       <li class="span3"><a href=""><img src="http://farm1.staticflickr.com/235/518821732_f195b900ec.jpg" /></a></li>
+       <li class="span3"><a href=""><img src="http://farm1.staticflickr.com/168/397834706_6a46c6ada5.jpg" /></a></li>
+       <li class="span3"><a href=""><img src="http://farm5.staticflickr.com/4052/4391095134_1f04348e26.jpg" /></a></li>
+       <li class="span3"><a href=""><img src="http://farm2.staticflickr.com/1426/1428279388_0c9b68295c.jpg" /></a></li>
        <li class="span3"><a href=""><img src="http://distilleryimage10.s3.amazonaws.com/0dbb4d90a81811e2a58e22000aa801d9_7.jpg" /></a></li>
        <li class="span3"><a href=""><img src="http://distilleryimage11.s3.amazonaws.com/a95f7ecaa77c11e2bc0822000a1f9737_7.jpg" /></a></li>
        <li class="span3"><a href=""><img src="http://distilleryimage1.s3.amazonaws.com/ecc510f89d3111e2846522000a1f9d5a_7.jpg" /></a></li>
        <li class="span3"><a href=""><img src="http://distilleryimage3.s3.amazonaws.com/e3846d689c5a11e2a1c022000a9e06ab_7.jpg" /></a></li>
+       <li class="span3"><a href=""><img src="http://farm4.staticflickr.com/3008/2995262331_d41063a272.jpg" /></a></li>
+       <li class="span3"><a href=""><img src="http://farm1.staticflickr.com/183/363695635_5621ff0da4.jpg" /></a></li>
       </ul>
     </div> <!-- /row -->
     <h3 class="demo-panel-title">Images for example with link</h3>
@@ -157,16 +165,18 @@ $('#header').instaheader({
       <ul class="thumbnails" id="example2">
        <li class="span3"><a href="http://www.google1.com"><img src="http://distilleryimage2.s3.amazonaws.com/cafe9804ab6e11e29e3522000a1fbc06_7.jpg" /></a></li>
        <li class="span3"><a href="http://www.google2.com"><img src="http://distilleryimage6.s3.amazonaws.com/a90a6eb6ab5611e2b93522000a1f96b2_6.jpg" /></a></li>
-       <li class="span3"><a href="http://www.google3.com"><img src="http://distilleryimage3.s3.amazonaws.com/995c1978ab5c11e2952822000a1f9695_6.jpg" /></a></li>
-       <li class="span3"><a href="http://www.google4.com"><img src="http://distilleryimage10.s3.amazonaws.com/7296d806ab4c11e2890222000a1fb0b2_7.jpg" /></a></li>
-       <li class="span3"><a href="http://www.google5.com"><img src="http://distilleryimage6.s3.amazonaws.com/716a3632ab3611e2ae2a22000a1f9723_7.jpg" /></a></li>
-       <li class="span3"><a href="http://www.google6.com"><img src="http://distilleryimage5.s3.amazonaws.com/8570e2dca9b211e2bb5822000a9e060e_7.jpg" /></a></li>
-       <li class="span3"><a href="http://www.google7.com"><img src="http://distilleryimage6.s3.amazonaws.com/37a66316a98e11e28a2e22000a1fbc67_7.jpg" /></a></li>
-       <li class="span3"><a href="http://www.google8.com"><img src="http://distilleryimage11.s3.amazonaws.com/753d4c7ea8dc11e2aaa822000a1fb0dd_7.jpg" /></a></li>
+       <li class="span3"><a href="http://www.google3.com"><img src="http://farm1.staticflickr.com/61/366959006_94023bb220.jpg" /></a></li>
+       <li class="span3"><a href="http://www.google4.com"><img src="http://farm1.staticflickr.com/195/492389522_d5609a92b4.jpg" /></a></li>
+       <li class="span3"><a href="http://www.google5.com"><img src="http://farm1.staticflickr.com/235/518821732_f195b900ec.jpg" /></a></li>
+       <li class="span3"><a href="http://www.google6.com"><img src="http://farm1.staticflickr.com/168/397834706_6a46c6ada5.jpg" /></a></li>
+       <li class="span3"><a href="http://www.google7.com"><img src="http://farm5.staticflickr.com/4052/4391095134_1f04348e26.jpg" /></a></li>
+       <li class="span3"><a href="http://www.google8.com"><img src="http://farm2.staticflickr.com/1426/1428279388_0c9b68295c.jpg" /></a></li>
        <li class="span3"><a href="http://www.google9.com"><img src="http://distilleryimage10.s3.amazonaws.com/0dbb4d90a81811e2a58e22000aa801d9_7.jpg" /></a></li>
        <li class="span3"><a href="http://www.google10.com"><img src="http://distilleryimage11.s3.amazonaws.com/a95f7ecaa77c11e2bc0822000a1f9737_7.jpg" /></a></li>
        <li class="span3"><a href="http://www.google11.com"><img src="http://distilleryimage1.s3.amazonaws.com/ecc510f89d3111e2846522000a1f9d5a_7.jpg" /></a></li>
        <li class="span3"><a href="http://www.google12.com"><img src="http://distilleryimage3.s3.amazonaws.com/e3846d689c5a11e2a1c022000a9e06ab_7.jpg" /></a></li>
+       <li class="span3"><a href=""><img src="http://farm4.staticflickr.com/3008/2995262331_d41063a272.jpg" /></a></li>
+       <li class="span3"><a href=""><img src="http://farm1.staticflickr.com/183/363695635_5621ff0da4.jpg" /></a></li>
       </ul>
     </div> <!-- /row -->
   </div>
@@ -183,31 +193,10 @@ $('#header').instaheader({
 <![endif]-->
 <script type="text/javascript">
 $(document).ready(function(){
-$('#header').instaheader({
-          imgs: [
-          "http://www.FullAttentiontoDetail.com/images/slide-2.jpg",
-          "http://www.FullAttentiontoDetail.com/images/slide-6.jpg",
-          "http://www.FullAttentiontoDetail.com/images/slide-7.jpg",
-          "http://www.FullAttentiontoDetail.com/images/slide-8.jpg",
-          "http://www.FullAttentiontoDetail.com/images/slide-9.jpg",
-          "http://www.FullAttentiontoDetail.com/images/slide-11.jpg",
-          "http://www.FullAttentiontoDetail.com/images/slide-12.jpg",
-          "http://www.FullAttentiontoDetail.com/images/slide-13.jpg",
-          "http://www.FullAttentiontoDetail.com/images/slide-14.jpg",
-          "http://www.FullAttentiontoDetail.com/images/slide-15.jpg",
-          "http://www.FullAttentiontoDetail.com/images/slide-16.jpg",
-          "http://www.FullAttentiontoDetail.com/images/slide-17.jpg",
-          "http://www.FullAttentiontoDetail.com/images/slide-18.jpg",
-          "http://www.FullAttentiontoDetail.com/images/slide-19.jpg",
-          "http://www.FullAttentiontoDetail.com/images/slide-20.jpg",
-          "http://www.FullAttentiontoDetail.com/images/slide-21.jpg",
-          "http://www.FullAttentiontoDetail.com/images/slide-22.jpg"],
-          time:4000,
-          animation_time:800,
-          auto:false,
-          animationType:'random'
-        });
-
+  $('#header').instaheader({
+    animate:true,
+    scan:"#example1"
+  });
 });
 </script>
 </body>
