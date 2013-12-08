@@ -2,7 +2,7 @@
  *  Project: Instaheader
  *  Description: Instagram Header made easy
  *  Author: Mathieu BUONOMO <www.mathieubuonomo.com>
- *  Version: 0.4
+ *  Version: 0.6
  *  License: Permission is hereby granted, free of charge, to any person obtaining
  *  a copy of this software and associated documentation files (the
  *  "Software"), to deal in the Software without restriction, including

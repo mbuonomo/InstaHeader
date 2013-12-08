@@ -1,8 +1,11 @@
-InstaHeader
-===========
+# InstaHeader
+==========
 
-Instagram Header like
+## Instagram Header like
 
-TODO : 
+v0.6 : 
++	New scan of images
++	New transitions
 
-* Add link on each image
+More informations [lab.mbuonomo.com/instaheader](http://lab.mbuonomo.com/instaheader "lab")
+
