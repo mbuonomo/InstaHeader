@@ -10,10 +10,10 @@
  *  distribute, sublicense, and/or sell copies of the Software, and to
  *  permit persons to whom the Software is furnished to do so, subject to
  *  the following conditions:
- *  
+ *
  *  The above copyright notice and this permission notice shall be
  *  included in all copies or substantial portions of the Software.
- *  
+ *
  *  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
  *  EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
  *  MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
@@ -34,7 +34,7 @@
 
         // otherwise loop over all the known prefixes until we find one
         for (var i = 0; i < prefixes.length; i++){
-            if ((prefixes[i] + 'Hidden') in document) 
+            if ((prefixes[i] + 'Hidden') in document)
                 return prefixes[i] + 'Hidden';
         }
 
@@ -104,19 +104,19 @@
                 // all animation types for the random option
                 this.animTypes = this.supportTransforms3D ? [
                     'fadeInOut',
-                    'slideLeft', 
-                    'slideRight', 
-                    'slideTop', 
-                    'slideBottom', 
-                    'rotateLeft', 
-                    'rotateRight', 
-                    'rotateTop', 
-                    'rotateBottom', 
-                    'scale', 
-                    'rotate3d', 
-                    'rotateLeftScale', 
-                    'rotateRightScale', 
-                    'rotateTopScale', 
+                    'slideLeft',
+                    'slideRight',
+                    'slideTop',
+                    'slideBottom',
+                    'rotateLeft',
+                    'rotateRight',
+                    'rotateTop',
+                    'rotateBottom',
+                    'scale',
+                    'rotate3d',
+                    'rotateLeftScale',
+                    'rotateRightScale',
+                    'rotateTopScale',
                     'rotateBottomScale' ] :
                     [ 'fadeInOut', 'slideLeft', 'slideRight', 'slideTop', 'slideBottom' ];
 
@@ -149,7 +149,7 @@
             switch( animType ) {
 
                 case 'showHide' :
-                    
+
                     speed = 0;
                     endOutProp.opacity = 0;
                     break;
@@ -160,35 +160,35 @@
                     break;
 
                 case 'slideLeft' :
-                    
+
                     startInProp.left = $out.width();
                     endInProp.left = 0;
                     endOutProp.left = -$out.width();
                     break;
 
                 case 'slideRight' :
-                    
+
                     startInProp.left = -$out.width();
                     endInProp.left = 0;
                     endOutProp.left = $out.width();
                     break;
 
                 case 'slideTop' :
-                    
+
                     startInProp.top = $out.height();
                     endInProp.top = 0;
                     endOutProp.top = -$out.height();
                     break;
 
                 case 'slideBottom' :
-                    
+
                     startInProp.top = -$out.height();
                     endInProp.top = 0;
                     endOutProp.top = $out.height();
                     break;
 
                 case 'rotateLeft' :
-                    
+
                     speed = this.options.animation_time / 2;
                     startInProp.transform = 'rotateY(90deg)';
                     endInProp.transform = 'rotateY(0deg)';
@@ -197,7 +197,7 @@
                     break;
 
                 case 'rotateRight' :
-                    
+
                     speed = this.options.animation_time / 2;
                     startInProp.transform = 'rotateY(-90deg)';
                     endInProp.transform = 'rotateY(0deg)';
@@ -206,7 +206,7 @@
                     break;
 
                 case 'rotateTop' :
-                    
+
                     speed = this.options.animation_time / 2;
                     startInProp.transform= 'rotateX(90deg)';
                     endInProp.transform = 'rotateX(0deg)';
@@ -215,7 +215,7 @@
                     break;
 
                 case 'rotateBottom' :
-                    
+
                     speed = this.options.animation_time / 2;
                     startInProp.transform = 'rotateX(-90deg)';
                     endInProp.transform = 'rotateX(0deg)';
@@ -224,7 +224,7 @@
                     break;
 
                 case 'scale' :
-                    
+
                     speed = this.options.animation_time / 2;
                     startInProp.transform = 'scale(0)';
                     startOutProp.transform = 'scale(1)';
@@ -234,9 +234,9 @@
                     break;
 
                 case 'rotateLeftScale' :
-                    
+
                     startOutProp.transform = 'scale(1)';
-                    speed = this.options.animation_time / 2; 
+                    speed = this.options.animation_time / 2;
                     startInProp.transform = 'scale(0.3) rotateY(90deg)';
                     endInProp.transform = 'scale(1) rotateY(0deg)';
                     delay = speed;
@@ -244,7 +244,7 @@
                     break;
 
                 case 'rotateRightScale' :
-                    
+
                     startOutProp.transform = 'scale(1)';
                     speed = this.options.animation_time / 2;
                     startInProp.transform = 'scale(0.3) rotateY(-90deg)';
@@ -254,7 +254,7 @@
                     break;
 
                 case 'rotateTopScale' :
-                    
+
                     startOutProp.transform = 'scale(1)';
                     speed = this.options.animation_time / 2;
                     startInProp.transform = 'scale(0.3) rotateX(90deg)';
@@ -264,7 +264,7 @@
                     break;
 
                 case 'rotateBottomScale' :
-                    
+
                     startOutProp.transform = 'scale(1)';
                     speed = this.options.animation_time / 2;
                     startInProp.transform = 'scale(0.3) rotateX(-90deg)';
@@ -274,7 +274,7 @@
                     break;
 
                 case 'rotate3d' :
-                    
+
                     speed = this.options.animation_time / 2;
                     startInProp.transform = 'rotate3d( 1, 1, 0, 90deg )';
                     endInProp.transform = 'rotate3d( 1, 1, 0, 0deg )';
@@ -288,7 +288,7 @@
                 startInProp : startInProp,
                 startOutProp : startOutProp,
                 endInProp : endInProp,
-                endOutProp : endOutProp,                
+                endOutProp : endOutProp,
                 delay : delay,
                 animSpeed : speed != undefined ? speed : this.options.animation_time
             };
@@ -313,7 +313,7 @@
                     el.on( self.transEndEventName, fncomplete );
 
                     if( force ) {
-                        fncomplete.call( el );                  
+                        fncomplete.call( el );
                     }
 
                 }
@@ -404,7 +404,7 @@
                     var imgs_clone = imgs.slice();
 
                     $('.instaheader').find('a').each(function(index, item){
-                        
+
                         var rel = parseInt($(item).attr('rel'));
 
                         $(imgs_clone).each(function(current, it){
@@ -431,7 +431,7 @@
 
                         // element stays active
                         $out.data( 'active', true );
-                        $inA = $('<a href="" rel="'+i.key+'" ></a>');
+                        $inA = $('<a href="'+i.link+'" rel="'+i.key+'" ></a>');
                         // prepend in element
                         $inA.css( newElProp ).prependTo( $out );
 
@@ -447,13 +447,13 @@
 
                             var $el = $( this ),
                                 t = animProp.animSpeed === that.options.animation_time && isEmpty( animProp.endInProp ) ? animProp.animSpeed : 0;
-                                
+
                             setTimeout( function() {
-                                
+
                                 if( self.supportTransitions ) {
                                     $el.off( self.transEndEventName );
                                 }
-                                
+
                                 $el.next().remove();
                                 $el.parent().data( 'active', false );
 
